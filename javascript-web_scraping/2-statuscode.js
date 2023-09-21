@@ -1,6 +1,11 @@
 #!/usr/bin/node
-const https = require('https');
+const request = require('request');
 
-https.get(process.argv[2], res => {
-  console.log('code:', res.statusCode);
+const url = process.argv[2];
+request.get(url, (err, response) => {
+  if (err) {
+    console.log(err);
+    return;
+  }
+  console.log(`code: ${response.statusCode}`);
 });
