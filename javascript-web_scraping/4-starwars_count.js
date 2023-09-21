@@ -7,13 +7,11 @@ request.get(process.argv[2], (err, response) => {
     return;
   }
   let count = 0;
-  const data = JSON.parse(response.body);
-  for (const movie in data.results) {
-    for (const char in data.results[movie].characters) {
-      if (data.results[movie].characters[char] == 'https://swapi-api.hbtn.io/api/people/18/') {
-        count = count + 1;
-      }
-    }
-  }
+  const movies = JSON.parse(response.body);
+  movies.results.forEach(movie => {
+    movie.characters.forEach(character => {
+      if (character.includes('/people/18')) count++;
+    });
+  });
   console.log(count);
 });
